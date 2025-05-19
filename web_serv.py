@@ -1,5 +1,7 @@
-from flask import Flask, Response, render_template_string, request
+from flask import Flask, Response, request
 from rss_fetcher import fetch_rss
+from uoh_feeds import get_uoh_jobs_rss
+
 
 app = Flask(__name__)
 
@@ -24,3 +26,8 @@ def hello_world(channel_id):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+@app.route("/uoh/jobs")
+def get_uoh_jobs():
+    return Response(get_uoh_jobs_rss(), mimetype='application/rss+xml')
